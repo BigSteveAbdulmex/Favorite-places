@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:favorite_places/screens/add_place.dart';
 import 'package:favorite_places/widgets/places_widget.dart';
+import 'package:favorite_places/providers/user_places.dart';
 
-class PlacesScreen extends StatelessWidget {
+class PlacesScreen extends ConsumerWidget {
   const PlacesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userPlaces = ref.watch(userPlacesProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('My Places'),
@@ -26,8 +31,8 @@ class PlacesScreen extends StatelessWidget {
           )
         ],
       ),
-      body: const PlacesWidget(
-        places: [],
+      body: PlacesWidget(
+        places: userPlaces,
       ),
     );
   }
